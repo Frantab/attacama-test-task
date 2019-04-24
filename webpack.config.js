@@ -3,9 +3,12 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // LOADERS
-const typescriptLoader = {
-    test: /\.tsx?$/,
-    loader: 'babel-loader'
+const jsLoader = {
+    test: /\.jsx$/,
+    exclude: /node_modules/,
+    use: {
+        loader: "babel-loader"
+    }
 };
 const cssLoader = {
     test: /\.css$/,
@@ -19,16 +22,13 @@ const htmlPlugin = new HtmlWebpackPlugin({
 });
 
 module.exports = {
-    entry: './src/index.tsx',
-    resolve: {
-        extensions: ['.ts', '.tsx', '.js']
-    },
+    entry: './src/index.jsx',
     output: {
         path: path.join(__dirname, '/dist'),
         filename: 'bundle.min.js'
     },
     module: {
-        rules: [typescriptLoader, cssLoader]
+        rules: [jsLoader, cssLoader]
     },
     plugins: [htmlPlugin]
 };
